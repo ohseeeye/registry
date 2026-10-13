@@ -1,0 +1,9 @@
+*
+!go.mod
+!go.sum
+!internal/
+!internal/**
+!sqlite/
+!sqlite/**
+!mem/
+!mem/**

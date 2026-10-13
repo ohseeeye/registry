@@ -1,0 +1,19 @@
+# Optional: omit -config entirely for an empty, writable local registry.
+version: 1
+upstreams:
+  # First matching entry wins. Repository names are passed upstream unchanged.
+  - name: company
+    match: ["company/**"]
+    host: ghcr.io
+    username: registry-reader
+    password_file: /run/secrets/ghcr-password
+
+  # Anonymous Docker Hub pulls. "library/alpine" stays "library/alpine".
+  - name: dockerhub
+    match: ["library/**"]
+    host: registry-1.docker.io
+    cache_tags: false
+    fallback_tags_on_error: false
+
+  # Unmatched repositories stay in local storage. Use match: ["**"] as a
+  # final entry to cache all remaining repository names from one upstream.
